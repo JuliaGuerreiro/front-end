@@ -14,10 +14,40 @@ export default function Teste(){
         getPostsFromApi();
     }, [])
 
+    const renderMedia = (post: IPost) => {
+    if (post.mediaUrl) {
+        // Check if the media is an image based on its file extension
+        const isImage = /\.(jpg|jpeg|png|gif)$/i.test(post.mediaUrl);
+
+        if (isImage) {
+        return (
+            <img src={post.mediaUrl} alt={post.textContent || ''} />
+        );
+        } else {
+        // It's assumed to be a video (adjust this logic if needed)
+        return (
+            <video controls>
+            <source src={post.mediaUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+            </video>
+        );
+        }
+    }
+
+    return null; // No media to render
+    };
+
     return (
-        <div className="Teste">
-            <div>{JSON.stringify(posts)}</div>
+    <div className="Teste">
+        <div>
+        {posts.map((post) => (
+            <div key={post.mediaFileId}>
+            {renderMedia(post)}
+            {post.textContent && <p>{post.textContent}</p>}
+            </div>
+        ))}
         </div>
+    </div>
     );
 }
 
