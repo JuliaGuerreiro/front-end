@@ -53,7 +53,7 @@ export default function Teste(){
 
                 <div className="media">
                     {renderMedia(post)}
-                    {post.textContent && <p>{post.textContent}</p>}
+                    {post.textContent && <p className="caption">{post.textContent}</p>}
                 </div>
             </div>
         ))}

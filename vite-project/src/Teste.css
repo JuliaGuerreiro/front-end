@@ -3,7 +3,8 @@ body{
 }
 
 .content{
-  margin-top: 100px;
+  margin-top: 90px;
+  text-align: left;
 }
 
 .media {
@@ -39,5 +40,12 @@ body{
   
   .user-name {
     font-family: 'Poppins', sans-serif;
+    font-weight: bold;
     margin: 0;
+  }
+
+  .caption {
+    font-family: 'Poppins', sans-serif;
+    font-weight: regular;
+    font-size: 12px;
   }
