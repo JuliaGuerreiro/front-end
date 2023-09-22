@@ -42,9 +42,15 @@ export default function Teste(){
     return (
     <div className="Teste">
         <Header />
-        <div>
+        <div className="content">
         {posts.map((post) => (
             <div key={post.mediaFileId}>
+
+                <div className="user-info">
+                    <img className="user-photo" src="user-temp.png"/>
+                    <p className="user-name">@user</p>
+                </div>
+
                 <div className="media">
                     {renderMedia(post)}
                     {post.textContent && <p>{post.textContent}</p>}
