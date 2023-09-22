@@ -1,6 +1,6 @@
-body {
-    background-color: #8A29E8; /* Replace with your desired background color */
-}
+/*body {
+    background-color: #8A29E8; 
+}*/
 
 .button-container {
     display: flex;
@@ -14,9 +14,18 @@ body {
 }
 
 .button{
+    background-color: #F0F1DF;
     border-radius: 20px;
     width: 264px;
     height: 39px;
+
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8A29E8;
+
+    box-shadow: 0 5px 4px rgba(0, 0, 0, 0.2);
 }
 
 .logo{
@@ -24,3 +33,4 @@ body {
     height: 300px; /* Set the height of the image */
     margin-left: -5px;
 }
+

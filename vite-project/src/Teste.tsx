@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { IPost } from './api/post/getAllPosts';
 import { apiRoutes } from './api';
+import { Header, Footer } from './Header-footer';
+import './Teste.css';
 
 export default function Teste(){
     const [posts, setPosts] = useState([] as IPost[]);
@@ -39,14 +41,18 @@ export default function Teste(){
 
     return (
     <div className="Teste">
+        <Header />
         <div>
         {posts.map((post) => (
             <div key={post.mediaFileId}>
-            {renderMedia(post)}
-            {post.textContent && <p>{post.textContent}</p>}
+                <div className="media">
+                    {renderMedia(post)}
+                    {post.textContent && <p>{post.textContent}</p>}
+                </div>
             </div>
         ))}
         </div>
+        <Footer />
     </div>
     );
 }

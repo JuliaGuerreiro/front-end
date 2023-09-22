@@ -11,8 +11,8 @@ const TwoButtons: React.FC = () => {
       <img className="logo" src="snapcat.png" />
 
       <div className="button-container">
-        <button className="button" onClick={() => handleButtonClick('Button 1')}>Login</button>
-        <button className="button"onClick={() => handleButtonClick('Button 2')}>Register</button>
+        <button className="button" onClick={() => handleButtonClick('Button 1')}>login</button>
+        <button className="button"onClick={() => handleButtonClick('Button 2')}>register</button>
       </div>
     </div>
   );
