@@ -6,16 +6,30 @@ import './ImageUploadPage.css';
 function CreatePost() {
   const [textContent, setTextContent] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
   const handleTextContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextContent(e.target.value);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+    const file = e.target?.files?.[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        if (event.target) {
+          // Atualiza o estado da imagem com a URL da imagem carregada
+          setImagePreviewUrl(event.target.result as string);
+        }
+      };
+  
+      reader.readAsDataURL(file);
+      setSelectedFile(file);
     }
   };
+   
 
   const handleSubmit = async () => {
     try {
@@ -42,18 +56,35 @@ function CreatePost() {
       <Header />
       <div className="create-post-container">
       
-        <h2>new post</h2>
+        <h2>New Post</h2>
 
-        <label className="upload-button">
-          Choose file...
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-        </label>
+        {/* Input de arquivo oculto */}
+        <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
 
-        {/*<textarea className="insert-caption"
-          placeholder="Enter your caption"
+        {/* Exibir a imagem carregada ou o botão de upload */}
+        {imagePreviewUrl ? (
+          <div className="image-preview">
+            <img src={imagePreviewUrl} alt="Uploaded" />
+          </div>
+        ) : (
+          <label className="upload-button" htmlFor="fileInput">
+            Choose file...
+          </label>
+        )}
+
+        <text> What pet is in this image?</text>
+
+        <div className="cat-info">
+          <img className="cat-photo" src="user-temp.png"/>
+          <p className="cat-name">@cat</p>
+        </div>
+        
+        <textarea 
+          placeholder="Enter your caption..."
           value={textContent}
           onChange={handleTextContentChange}
-  />*/}
+        />
+        
         <button onClick={handleSubmit}>Add</button>
       </div>
       <Footer />
