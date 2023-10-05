@@ -27,3 +27,43 @@
   box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.2);
   padding: 10px 0;
 }
+
+.icons{
+  position: fixed;
+  bottom: 20px;
+  left: 85px;
+  display: flex; /* Use Flexbox to center-align elements */
+  flex-direction: row;
+  justify-content: center; /* Horizontally center-align elements */
+  align-items: center; /* Vertically center-align elements */
+  gap: 50px;
+}
+
+.home-button img{
+  width: 20px; 
+  height: 20px; 
+  border: none;
+  outline: none;
+}
+
+.search-button img{
+  width: 20px; 
+  height: 20px; 
+  border: none;
+  outline: none;
+}
+
+.add-button img{
+  width: 20px; 
+  height: 20px; 
+  border: none;
+  outline: none;
+}
+
+.profile-button img{
+  width: 20px; 
+  height: 20px; 
+  border: none;
+  outline: none;
+}
+
