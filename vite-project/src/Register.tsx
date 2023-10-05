@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Login-register.css';
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   useEffect(() => {
     document.body.className = 'login'; // Adicione a classe 'page1' ao body
     return () => {
@@ -11,30 +11,51 @@ const Login: React.FC = () => {
   }, []);
 
   const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here (e.g., API request)
+  
+    if (password !== confirmPassword) {
+      alert('Password and Confirm Password must match.');
+      return; 
+    }
+  
     console.log('Username:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
+  
+    setUsername('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  
+    // You can make an API request to register the user here
   };
+  
 
   return (
     <div className="login-form">
       
-      <div className="welcome-back">
-        <p>welcome</p>
-        <p>back,</p>
-      </div>
+      <p className="welcome">welcome,</p>
 
       <form onSubmit={handleSubmit}>
         
@@ -46,6 +67,18 @@ const Login: React.FC = () => {
             placeholder="username"
             value={username}
             onChange={handleUsernameChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="e-mail"
+            value={email}
+            onChange={handleEmailChange}
             required
           />
         </div>
@@ -62,15 +95,27 @@ const Login: React.FC = () => {
           />
         </div>
 
-        <button type="submit">login</button>
+        <div className="form-group">
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="confirm password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            required
+          />
+        </div>
+
+        <button type="submit">register</button>
       </form>
 
       <div className="register">
-        <p>don't have an account yet?</p>
-        <Link to="/Register" className="link">sign up</Link>
+        <p>already have an account?</p>
+        <Link to="/Login" className="link">login</Link>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
