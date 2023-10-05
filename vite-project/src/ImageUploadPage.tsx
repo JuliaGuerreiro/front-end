@@ -1,7 +1,9 @@
 import React, { useState, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from './api'; // Import your API instance
 import { Header, Footer } from './Header-footer';
 import './ImageUploadPage.css';
+import './BackButton.css';
 
 function CreatePost() {
   const [textContent, setTextContent] = useState<string>('');
@@ -51,12 +53,27 @@ function CreatePost() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); // Isso vai navegar de volta para a página anterior
+  };
+
   return (
     <div>
       <Header />
-      <div className="create-post-container">
       
-        <h2>New Post</h2>
+      <div className="create-post-container">
+        
+        <div className="container-back-and-title">
+          <div className="back-button">
+            <a href="#" onClick={goBack}>
+              <img src={"back-arrow.png"} alt="Back"/>
+            </a>
+          </div>
+
+          <h2>New Post</h2>
+        </div>
 
         {/* Input de arquivo oculto */}
         <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
