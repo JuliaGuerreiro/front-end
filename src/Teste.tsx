@@ -1,6 +1,6 @@
 {/* TROCAR CONFIGURAÇÃO DAS IMAGENS PARA FLEXBOX ASAP */}
 
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import { IPost } from './api/post/getAllPosts';
 import { apiRoutes } from './api';
 import { Header, Footer } from './Header-footer';
