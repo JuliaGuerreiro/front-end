@@ -118,7 +118,7 @@ function AddNewCat() {
                 type="age"
                 id="age"
                 name="age"
-                placeholder="Age"
+                placeholder="Nickname"
                 value={age}
                 onChange={handleEmailChange}
                 required
