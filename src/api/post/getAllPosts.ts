@@ -1,13 +1,20 @@
 import api from "..";
 
 export interface GetAllPostsResBody {
-    posts: IPost[]
+    posts: IPost[];
 }
 
-export interface IPost{
-    mediaUrl?: string,
-    textContent?: string,
-    mediaFileId?: string;
+export interface IPost {
+    createdUTCDateTime: string;
+    mediaUrl: string;
+    pet: {
+        name: string;
+        nickname: string;
+        createdUTCDateTime: string;
+        profilePictureUrl: string;
+    };
+    textContent: string;
 }
 
-export const getAllPosts = async () : Promise<{ data: GetAllPostsResBody }> => await api.get("/post/get", {})
+export const getAllPosts = async (): Promise<{ data: GetAllPostsResBody }> =>
+    await api.get("/post/get", {});
