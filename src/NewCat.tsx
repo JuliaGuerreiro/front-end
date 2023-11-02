@@ -10,14 +10,14 @@ function AddNewCat() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [catname, setCatname] = useState<string>('');
-  const [age, setAge] = useState<string>('');
+  const [nickname, setNickName] = useState<string>('');
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCatname(e.target.value);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAge(e.target.value);
+    setNickName(e.target.value);
   };  
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +58,7 @@ function AddNewCat() {
     }
 
     console.log('Cat name:', catname);
-    console.log('Cat age:', age);
+    console.log('Cat age:', nickname);
   };
 
   const navigate = useNavigate();
@@ -93,19 +93,20 @@ function AddNewCat() {
           </div>
         ) : (
           <label className="upload-cat-button" htmlFor="fileInput">
-            Choose file...
+            <div className="button-content">
+              <img src="uploadcat.png" alt="Upload Button" />
+              <p>Add a cat profile photo</p>
+            </div>
           </label>
         )}
-
-        <text> Add a cat profile photo</text>
 
         <form onSubmit={handleSubmit}>
         
             <div className="form-group">
             <input
                 type="text"
-                id="username"
-                name="username"
+                id="catsname"
+                name="catsname"
                 placeholder="Cat's name"
                 value={catname}
                 onChange={handleUsernameChange}
@@ -115,11 +116,11 @@ function AddNewCat() {
 
             <div className="form-group">
             <input
-                type="age"
-                id="age"
-                name="age"
+                type="text"
+                id="username"
+                name="username"
                 placeholder="Nickname"
-                value={age}
+                value={nickname}
                 onChange={handleEmailChange}
                 required
             />
