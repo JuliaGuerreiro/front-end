@@ -1,5 +1,6 @@
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAllPets, GetAllPetsResBody, IPet } from './api/pet/getAllPets';
 import api from './api'; // Import your API instance
 import { Header, Footer } from './Header-footer';
 import './ImageUploadPage.css';
@@ -9,6 +10,8 @@ function CreatePost() {
   const [textContent, setTextContent] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [petNicknames, setPetNicknames] = useState<string[]>([]);
+  const [selectedPetNickname, setSelectedPetNickname] = useState<string>('');
 
   const handleTextContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextContent(e.target.value);
@@ -22,7 +25,6 @@ function CreatePost() {
   
       reader.onload = (event) => {
         if (event.target) {
-          // Atualiza o estado da imagem com a URL da imagem carregada
           setImagePreviewUrl(event.target.result as string);
         }
       };
@@ -31,15 +33,16 @@ function CreatePost() {
       setSelectedFile(file);
     }
   };
-   
 
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append('textContent', textContent);
+      
       if (selectedFile) {
-        formData.append('mediaFile', selectedFile);
+        formData.append('media', selectedFile);
       }
+      formData.append('petPublicId', selectedPetNickname);
+      formData.append('textContent', textContent);
 
       await api.post('/post/create', formData, {
         headers: {
@@ -56,8 +59,21 @@ function CreatePost() {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1); // Isso vai navegar de volta para a página anterior
+    navigate(-1);
   };
+
+  useEffect(() => {
+    const fetchPetNicknames = async () => {
+      try {
+        const response = await getAllPets();
+        setPetNicknames(response.data.pets.map((pet: IPet) => pet.nickname));
+      } catch (error) {
+        console.error('Error fetching pet nicknames:', error);
+      }
+    };
+
+    fetchPetNicknames();
+  }, []);
 
   return (
     <div>
@@ -68,17 +84,15 @@ function CreatePost() {
         <div className="container-back-and-title">
           <div className="back-button">
             <a href="#" onClick={goBack}>
-              <img src={"back-arrow.png"} alt="Back"/>
+              <img src={"back-arrow.png"} alt="Back" />
             </a>
           </div>
 
           <h2>New Post</h2>
         </div>
 
-        {/* Input de arquivo oculto */}
         <input type="file" accept="image/*" onChange={handleFileChange} id="fileInput" style={{ display: 'none' }} />
 
-        {/* Exibir a imagem carregada ou o botão de upload */}
         {imagePreviewUrl ? (
           <div className="image-preview">
             <img src={imagePreviewUrl} alt="Uploaded" />
@@ -91,9 +105,20 @@ function CreatePost() {
 
         <text> What pet is in this image?</text>
 
-        <div className="cat-info">
-          <img className="cat-photo" src="user-temp.png"/>
-          <p className="cat-name">@cat</p>
+        <div className="pet-selection">
+          <label htmlFor="petNickname"></label>
+          <select
+            id="petNickname"
+            value={selectedPetNickname}
+            onChange={(e) => setSelectedPetNickname(e.target.value)}
+          >
+            <option value="">-- Select a pet --</option>
+            {petNicknames.map((nickname) => (
+              <option key={nickname} value={nickname}>
+                {nickname}
+              </option>
+            ))}
+          </select>
         </div>
         
         <textarea 
